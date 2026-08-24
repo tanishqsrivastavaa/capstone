@@ -7,7 +7,7 @@ Not normative — `spec/SPEC.md` governs. If something here contradicts the spec
 this file is wrong. Anything here that turns out to be a durable decision belongs in `SPEC.md`
 (as a `DEC`), a durable risk belongs in `SPEC.md` §16, and an explanation belongs in `docs/`.
 
-**Last updated:** 2026-08-24 · **Phase:** **G8_F/F0-v3 is GREEN and Pascal-bound; the separate F1-only owner launch authorization is frozen and the exact `confessor` sole-writer campaign is the live external frontier. G8_E is GREEN and CLOSED through E7. The
+**Last updated:** 2026-08-25 · **Phase:** **G8_F/F0-v3 is GREEN and Pascal-bound; the separate F1-only owner launch authorization is frozen and the exact `confessor` sole-writer campaign is the live external frontier. G8_E is GREEN and CLOSED through E7. The
 owner-authorized E5 selection pass one executed EXACTLY ONCE under the narrow
 authorization issued `d6b0ac7e15299d3b08d9baff63e5361b2fac90aa9166ee0a93672a76c1b1bc33`
 (pre-execution marker `c27100431317cc2dc4fffc434705361215157d9805b3a5217574843ed0387fb4`,
@@ -1405,6 +1405,23 @@ afterwards — AM-47 exists for exactly this and still did not catch it.
 
 ## Session log
 
+- **2026-08-25 (read-only F1/review/health audit; no state change)** — Three parallel read-only
+  audits ran in detached worktrees at `b7e67c59`; nothing was executed, trained or modified.
+  (i) Integrity: computed SHA-256 of `results/baseline/g8_f/f0_v3_execution_authorization.json`
+  (`391cd815…`) and `f1_launch_authorization.json` (`4265b696…`) both MATCH the frozen values;
+  no tracked F1 progress evidence exists anywhere in Git (HEAD is the launch commit itself), and
+  the sole-writer runtime under `/home/nick` on this host is not readable by this account, so the
+  external runtime remains authoritative for F1 progress. (ii) First Review package: both 12-slide
+  decks, the 30-reference literature review, corrected Gantt, deployment dossier and presenter
+  guide are complete; still open are the human-gated author deck approval, four-member rehearsal,
+  guide acknowledgement (record still all-"Not yet recorded"), and the final package freeze plus
+  the annotated `review-1-basis` snapshot, which deliberately does not exist yet. Note the
+  2026-08-18–22 window has passed while those gates sit open; whether the review occurred is not
+  recorded in the repo. (iii) Repo health: `gen_spec_views.py --check`, `check_doc_consistency.py`
+  and `check_literals.py` all PASS with zero findings; dataset/manifest/W4/G8_E verifiers were
+  ENV-LIMITED only (dependency-light venv lacking numpy/glymur, git-ignored archives absent from a
+  clean worktree) — no HOLD or evidence mismatch surfaced. Next: unchanged — monitor the external
+  F1 sole writer without restart; F2/pass two/test remain closed pending owner authorization.
 - **2026-07-30 (validation-only transparency-bitrate probe complete)** — Froze the design before
   measurement, loaded checkpoint
   `9c37362347a0203597d6e8e9d9a58fde30ba286f3cec9b4d2f800bd8a3256002` without the training-resume
