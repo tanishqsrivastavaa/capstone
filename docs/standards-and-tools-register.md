@@ -31,11 +31,12 @@ This register satisfies PR-3. It distinguishes a claimed conformance boundary fr
 
 ### 2.1 Permitted standards claim
 
-The defensible short claim is:
+The defensible short claim is, verbatim as `params.baseline.standards_claim`
+(PF-3 requires the sentence to appear verbatim in this register):
 
-> The simulator implements a TS 38.212-derived 5G NR LDPC coding and rate-matching chain for byte-framed payloads, with generic BPSK/QPSK/16-QAM over an abstract AWGN channel; JPEG 2000 coding is provided by OpenJPEG 2.5.4.
+> a TS 38.212-derived 5G NR LDPC coding and rate-matching core, with custom byte-framed payloads and generic BPSK/QPSK/16-QAM over abstract AWGN
 
-It must always be accompanied by the exclusions: no TS 38.214 transport-block/MCS procedure, scheduling, HARQ, resource allocation, OFDM resource mapping, NR synchronization/pilots, waveform generation, π/2-BPSK, or full 5G NR link conformance.
+JPEG 2000 coding is provided by OpenJPEG 2.5.4. The claim must always be accompanied by the exclusions: no TS 38.214 transport-block/MCS procedure, scheduling, HARQ, resource allocation, OFDM resource mapping, NR synchronization/pilots, waveform generation, π/2-BPSK, or full 5G NR link conformance.
 
 ## 3. Software tools and libraries
 
@@ -77,7 +78,7 @@ These are project engineering controls rather than external standards, but they 
 | Item | Current state | Role | Constraint |
 |---|---|---|---|
 | NVIDIA GeForce RTX 4060 Laptop GPU | Available and profiled | Training and full-strength simulation | CUDA 13.0 PyTorch build; driver 592.82 recorded in evidence |
-| Dedicated Pascal worker: GeForce GTX 1080 Ti (11 GB) + TITAN Xp (12 GB) | Both GP102 devices enumerated by user-supplied `lspci`; not yet project-qualified | Candidate future independent experiment workers | Both cards require a Pascal-capable software lane; they are not authorized for the live G8_C suffix |
+| Dedicated Pascal worker: GeForce GTX 1080 Ti (11 GB) + TITAN Xp (12 GB) | **Qualified** as execution profile `confessor_pascal_cu126` (2026-08-25 status; see §5.1) | Production scientific execution — completed the G8_C successor campaign (3,213/3,213 identities), G8_E E2–E7, and is the sole writer for the owner-authorized G8_F/F1 corpus materialization | Separate hashed `requirements-pascal.lock` (Python 3.14.6, torch 2.13.0+cu126); sole-writer discipline; profile frozen per run before first measurement |
 | Dedicated-worker Intel NVMe controller | Enumerated by user-supplied `lspci`; capacity/filesystem not yet measured | Candidate local datasets, caches and checkpoints | Confirm mounted capacity, free space and health before delegation; `lspci` cannot exclude additional SATA disks |
 | WSL2 `/dev/dxg` CUDA path | Available | GPU access boundary | A visible adapter is insufficient; PyTorch CUDA initialization is the acceptance test |
 | HackRF One + RTL-SDR pair | Candidate only | Optional transmit/receive SDR replay | No purchase before G-5; at least 1 Msps required; candidate capability must be rechecked before procurement |
@@ -85,6 +86,20 @@ These are project engineering controls rather than external standards, but they 
 | Raspberry Pi 4/5-class host | Candidate only | Optional Tier 3 edge demo | Attempt only if Tier 2 lands; otherwise prerecorded demonstration is the mandated fallback |
 
 ### 5.1 Dedicated Pascal worker finding — 2026-08-14
+
+> **2026-08-25 status (supersedes the directives below, which are preserved as history):**
+> the node was subsequently qualified exactly along the path this finding anticipated — a
+> separate hashed CUDA 12.6 lane (`requirements-pascal.in` → `requirements-pascal.lock`:
+> Python **3.14.6**, `torch==2.13.0+cu126`, `torchvision==0.28.0+cu126`) was added rather than
+> replacing the CUDA 13 lane, both GPUs were qualified, and execution profile
+> `confessor_pascal_cu126` is now frozen and authoritative alongside `local_4060_cu130`.
+> The "do not execute or resume" directive below is moot: G8_C completed on this profile at
+> 3,213/3,213 identities, its successor BLER table is frozen from those measurements, G8_E ran
+> E2–E7 on it GREEN/closed, and it is currently the sole writer for the owner-authorized
+> G8_F/F1 corpus materialization. The dependency-guard observation about
+> `_authenticate_dependencies()` remains true as stated; the conclusion drawn from it applied to
+> a pre-qualification moment that has passed. The delegation decision recorded as open in the
+> final paragraph was made: the node is adopted for production scientific execution.
 
 The worker's user-supplied PCI enumeration confirms a GeForce GTX 1080 Ti at
 `3b:00.0`, a TITAN Xp at `d8:00.0`, and an Intel NVMe controller at `5e:00.0`.
