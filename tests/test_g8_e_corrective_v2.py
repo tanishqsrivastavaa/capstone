@@ -201,7 +201,7 @@ def test_seventy_codec_infeasible_rows_stay_in_denominator(fake_br11):
 
 def test_codec_infeasibility_concentrated_in_or_out_of_outage_class(fake_br11):
     ctx = _context()
-    in_class = {index for index, label in enumerate(ctx["labels"]) if label == 2} 
+    in_class = {index for index, label in enumerate(ctx["labels"]) if label == 2}
     in_class = set(sorted(in_class)[:70])
     out_class = {index for index, label in enumerate(ctx["labels"]) if label != 2}
     out_class = set(sorted(out_class)[:70])
